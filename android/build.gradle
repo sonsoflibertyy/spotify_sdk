@@ -1,25 +1,16 @@
 group 'de.minimalme.spotify_sdk'
-version '1.0-SNAPSHOT'
+version '3.0.2' // Match the plugin version from pub.dev
 
 buildscript {
-    ext.kotlin_version = '1.8.22'
+    ext.kotlin_version = '1.9.20' // Updated to match Flutter's Kotlin version
     repositories {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'
+        classpath 'com.android.tools.build:gradle:8.7.3' // Match your project's AGP
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
-rootProject.allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
     }
 }
 
@@ -27,19 +18,16 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace 'de.minimalme.spotify_sdk'
-    }
-
-    compileSdk 34
+    compileSdkVersion 34
+    namespace 'de.minimalme.spotify_sdk' // Ensure namespace is set
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
+        jvmTarget = '17'
     }
 
     sourceSets {
@@ -58,10 +46,10 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // -- spotify
-    implementation "com.spotify.android:auth:2.1.0"
-    implementation project(':spotify-app-remote')
+    // -- Spotify
+    implementation 'com.spotify.android:appremote:0.8.0' // Use Maven dependency
+    implementation 'com.spotify.android:auth:2.1.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    // -- events
+    // -- Events
     implementation "com.github.stuhlmeier:kotlin-events:v2.0"
 }
